@@ -1,0 +1,102 @@
+// Interface Carnivore
+public interface Carnivore<T> {
+    void eatMeat(T meat);
+}
+
+// Interface Herbivore
+public interface Herbivore<T> {
+    void eatPlant(T plant);
+}
+
+// Interface Omnivore
+public interface Omnivore<T> extends Carnivore<T>, Herbivore<T> {
+    void eatPlantAndMeat(T food);
+}
+// Définition de l'énumération Food
+public enum Food {
+    MEAT,
+    PLANT,
+    BOTH
+}
+// L'interface Carnivore
+public interface Carnivore<T> {
+    void eatMeat(T meat);
+}
+
+// L'interface Omnivore
+public interface Omnivore<T> extends Carnivore<T>, Herbivore<T> {
+    void eatPlantAndMeat(T food);
+}
+
+// L'énumération Food
+public enum Food {
+    MEAT,
+    PLANT,
+    BOTH
+}
+
+// La classe Aquatic implémentant l'interface Carnivore
+public class Aquatic implements Carnivore<Food> {
+    @Override
+    public void eatMeat(Food food) {
+        if (food == Food.MEAT || food == Food.BOTH) {
+            System.out.println("Aquatic eats meat.");
+        } else {
+            System.out.println("Aquatic cannot eat plant.");
+        }
+    }
+}
+
+// La classe Terrestrial implémentant l'interface Omnivore
+public class Terrestrial implements Omnivore<Food> {
+    @Override
+    public void eatMeat(Food meat) {
+        if (meat == Food.MEAT || meat == Food.BOTH) {
+            System.out.println("Terrestrial eats meat.");
+        } else {
+            System.out.println("Terrestrial cannot eat plant.");
+        }
+    }
+
+    @Override
+    public void eatPlant(Food plant) {
+        if (plant == Food.PLANT || plant == Food.BOTH) {
+            System.out.println("Terrestrial eats plant.");
+        } else {
+            System.out.println("Terrestrial cannot eat meat.");
+        }
+    }
+
+    @Override
+    public void eatPlantAndMeat(Food food) {
+        System.out.println("Terrestrial eats both plant and meat.");
+    }
+}
+public class Main {
+    public static void main(String[] args) {
+        // Création d'un objet Aquatic
+        Aquatic aquatic = new Aquatic();
+
+        // Test des méthodes de Aquatic
+        System.out.println("Testing Aquatic:");
+        aquatic.eatMeat(Food.MEAT);
+        aquatic.eatMeat(Food.PLANT);
+
+        // Création d'un objet Penguin (un sous-type de Aquatic)
+        Penguin penguin = new Penguin();
+
+        // Test des méthodes de Penguin
+        System.out.println("\nTesting Penguin:");
+        penguin.eatMeat(Food.MEAT);
+        penguin.eatMeat(Food.PLANT);
+
+        // Création d'un objet Terrestrial
+        Terrestrial terrestrial = new Terrestrial();
+
+        // Test des méthodes de Terrestrial
+        System.out.println("\nTesting Terrestrial:");
+        terrestrial.eatMeat(Food.MEAT);
+        terrestrial.eatPlant(Food.PLANT);
+        terrestrial.eatPlantAndMeat(Food.BOTH);
+    }
+}
